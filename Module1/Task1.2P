@@ -1,0 +1,33 @@
+//Set the pin for the button and the LED
+const uint8_t BTN_PIN = 2;
+const uint8_t LED_PIN = 13;
+
+//Set current global variables
+uint8_t ledState = LOW;
+
+//Set up inputs and outputs
+void setup()
+{
+  //Initialize the button as an input
+  pinMode(BTN_PIN, INPUT_PULLUP);
+  //Initialize the LED as the output
+  pinMode(LED_PIN, OUTPUT);
+  //Initialize the serial
+  Serial.begin(9600);
+  
+  attachInterrupt(digitalPinToInterrupt(BTN_PIN),toggle, FALLING);
+}
+
+void loop()
+{
+  delay(500);
+}
+
+void toggle()
+{
+  ledState = !ledState;
+  digitalWrite(LED_PIN, ledState);
+  
+  Serial.print(ledState);
+  Serial.println("");
+}
