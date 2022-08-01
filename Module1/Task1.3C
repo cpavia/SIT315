@@ -1,0 +1,45 @@
+
+//Define pins
+const byte POT = 3; //interrupt pin
+const byte BUTTON = 2; //interrupt pin
+const byte LED = 13; 
+
+//Declare variables
+volatile byte state = LOW;
+
+//Setup input/outputs and initialize print
+void setup()
+{
+  pinMode(LED, OUTPUT); 
+  attachInterrupt(digitalPinToInterrupt(BUTTON), interupt1, CHANGE);
+  attachInterrupt(digitalPinToInterrupt(POT), interupt2, CHANGE);
+  Serial.begin(9600);
+}
+
+void loop()
+{
+  if (state==HIGH)
+  {
+    digitalWrite(LED,HIGH);
+    delay(500);    
+  }
+  
+  if (state==HIGH) 
+  {
+    Serial.println("low");
+    state = LOW;
+    digitalWrite(LED,LOW);
+  }
+}
+
+void interupt1() 
+{
+  state = HIGH;
+  Serial.println("interrupt");
+}
+
+void interupt2() 
+{
+  state = HIGH;
+  Serial.println("interrupt");
+}
